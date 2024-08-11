@@ -3,7 +3,8 @@
 Youtube - https://m.youtube.com/watch?si=rSv97_HA1vHpPSWe&v=Zj338upBMtM&feature=youtu.be
 
 CORS:
-``` [
+```
+[
     {
         "AllowedHeaders": [
             "*"
