@@ -20,10 +20,12 @@ CORS:
         ],
         "ExposeHeaders": []
     }
-] ```
+]
+```
 
 BUCKET POLICY :
-``{
+```
+{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -41,4 +43,5 @@ BUCKET POLICY :
             "Resource": "arn:aws:s3:::s3setuptutorial/*"
         }
     ]
-}```
+}
+```
