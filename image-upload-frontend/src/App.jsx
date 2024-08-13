@@ -15,40 +15,44 @@ function App() {
     
   };
 // Upload Your Image
-  const handleUpload = async () => {
-    if (image == null) {
-      return console.log("no image uploaded");
-    }
+const handleUpload = async () => {
+  if (image == null) {
+    console.log("No image uploaded");
+    return;
+  }
 
-    // Get Format of Image - jpg, svg, png, webp
-    let type = `${image.type}`; 
-    console.log(1,type)
- 
+  // Get Format of Image - jpg, svg, png, webp
+  const type = `${image.type}`;
+  console.log(1, type);
+
+  try {
     // Get the presigned URL
-    const url = await axios    
-      .post(`http://localhost:8080/presignedurl`, { type: type }) 
-      .then((res) => res.data);
-      console.log(1,url)
+    const response = await axios.post('http://localhost:8080/presignedurl', { type: type });
+    const url = response.data;
 
-      console.log(1,typeof url)
+    console.log(1, url);
+    console.log(1, typeof url);
 
-    // //Upload the image to S3
+    // Upload the image to S3
     await axios.put(
-      url, // url to bucket got it from the backend
-      image, // image you want to upload
-      {headers: {"Content-Type": type, /* image type - webp, png, jpg...*/},})
-      .then((res) => {console.log(res);console.log("successfilly added!");}) // Console log if iamge successfully uploaded
-      .catch((error) => console.log(error)); // log error if image wasn't uploaded
+      url, // URL to bucket obtained from the backend
+      image, // Image you want to upload
+      { headers: { "Content-Type": type /* Image type - webp, png, jpg... */ } }
+    );
 
+    console.log("Successfully uploaded!");
+  } catch (error) {
+    console.error("Error during upload:", error);
+  }
+};
 
-
-  };
 
   return (
     <div className="form">
       <h1>Upload Image</h1>
       <input type="file" accept="image/*" onChange={handleImageChange}/>
       <button onClick={handleUpload}>Add Image to S3</button>
+
     </div>
   );
 }
